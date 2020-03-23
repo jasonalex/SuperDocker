@@ -19,6 +19,7 @@ pipeline {
             steps {
               echo "Building Docker Image"
               sh 'cd build'
+              sh 'ls'
               sh 'docker build -t $package-$os:latest .'
             }
         }
