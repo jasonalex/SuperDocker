@@ -14,15 +14,16 @@ pipeline {
               echo "Building Docker Image"
             }
         }
-        stage('Deploy to ECR'){
-        when {
-          expression {
-            currentBuild.result == null || currentBuild.result == 'SUCCESS'
-          }
-        }
-        steps {
-            echo 'Deploying to ECR'
-            python -v
+        stage('Deploy to ECR') {
+            when {
+              expression {
+                currentBuild.result == null || currentBuild.result == 'SUCCESS'
+              }
+            }
+            steps {
+                python -v
+                echo "Deploying to ECR"
+            }
         }
     }
 }
