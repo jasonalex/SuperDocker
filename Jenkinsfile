@@ -6,7 +6,7 @@ pipeline {
     parameters {
         choice(name: 'os', choices: ['alpine', 'debian'], description: 'Choose Base OS')
         choice(name: 'package', choices: ['python', 'node'], description: 'Choose Package')
-        string(name: 'aws_account', description: ' Destination AWS Account')
+        string(name: 'aws_account', defaultValue: '787916049928', description: ' Destination AWS Account')
     }
     stages {
         stage('Creating Docker File') {
@@ -18,7 +18,7 @@ pipeline {
         stage('Build Image'){
             steps {
               echo "Building Docker Image"
-//              sh 'docker build -f build/Dockerfile -t $package-$os:latest .'
+              sh 'docker build -f build/Dockerfile -t $package-$os:latest .'
             }
         }
         stage('Create ECR Repo') {
@@ -40,6 +40,7 @@ pipeline {
             }
             steps {
                 echo "Deploying Image to ECR"
+                sh 'python3 DockerImagePush.py -o $os -p $package -c $aws_account'
             }
         }
     }
