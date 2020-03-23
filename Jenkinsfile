@@ -4,7 +4,7 @@ pipeline {
         skipStagesAfterUnstable()
     }
     parameters {
-        choice(name: 'os', choices: ['alpine', 'debian'], description: 'Choose Base OS') 
+        choice(name: 'os', choices: ['alpine', 'debian'], description: 'Choose Base OS')
         choice(name: 'package', choices: ['python', 'node'], description: 'Choose Package')
     }
 
@@ -18,6 +18,7 @@ pipeline {
         stage('Build Image'){
             steps {
               echo "Building Docker Image"
+              sh 'cat build/Dockerfile'
             }
         }
         stage('Deploy to ECR') {
