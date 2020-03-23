@@ -18,7 +18,8 @@ pipeline {
         stage('Build Image'){
             steps {
               echo "Building Docker Image"
-              sh 'cat build/Dockerfile'
+              sh 'cd build/Dockerfile'
+              sh 'docker build -t $package-$os:latest'
             }
         }
         stage('Deploy to ECR') {
