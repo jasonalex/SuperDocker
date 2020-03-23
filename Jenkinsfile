@@ -4,8 +4,8 @@ pipeline {
         skipStagesAfterUnstable()
     }
     parameters {
-        parameters { choice(name: 'os', choices: ['alpine', 'debian'], description: 'Choose Base OS') }
-        parameters { choice(name: 'package', choices: ['python', 'node'], description: 'Choose Package') }
+        choice(name: 'os', choices: ['alpine', 'debian'], description: 'Choose Base OS') 
+        choice(name: 'package', choices: ['python', 'node'], description: 'Choose Package')
     }
 
     stages {
