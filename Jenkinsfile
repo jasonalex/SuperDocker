@@ -21,7 +21,6 @@ pipeline {
               }
             }
             steps {
-                python -v
                 echo "Deploying to ECR"
             }
         }
