@@ -12,7 +12,7 @@ pipeline {
         stage('Creating Docker File') {
             steps {
                 echo "Creating Docker File"
-                sh 'python3 dockerfilegenerator.py -o ${params.os} -p ${params.package}'
+                sh 'python dockerfilegenerator.py -o alpine -p python'
             }
         }
         stage('Build Image'){
