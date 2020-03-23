@@ -18,6 +18,7 @@ try:
     uri = response['repositories'][0]['repositoryUri']
     print(uri)
     print('Logging in to ECR')
+    os.system('aws --version')
     os.system('aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin {}'.format(uri))
     os.system('docker tag {}-{}:latest {}:latest'.format(args.package,args.os,uri))
     os.system('docker push {}:latest'.format(uri))
