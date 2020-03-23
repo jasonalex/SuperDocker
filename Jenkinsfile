@@ -4,15 +4,15 @@ pipeline {
         skipStagesAfterUnstable()
     }
     parameters {
-        string(name: 'os', defaultValue: 'alpine', description: 'Choose your Base OS')
-        string(name: 'package', defaultValue: 'python', description: 'Choose your Package')
+        parameters { choice(name: 'os', choices: ['alpine', 'debian'], description: 'Choose Base OS') }
+        parameters { choice(name: 'package', choices: ['python', 'node'], description: 'Choose Package') }
     }
 
     stages {
         stage('Creating Docker File') {
             steps {
                 echo "Creating Docker File"
-                sh 'python dockerfilegenerator.py -o alpine -p python'
+                sh 'python dockerfilegenerator.py -o $os -p $package'
             }
         }
         stage('Build Image'){

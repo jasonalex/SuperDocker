@@ -4,23 +4,23 @@ from string import Template
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-o","--os",type=string, choices=['alpine', 'centos', 'debian'], help="Choose OS alpine/centos/ubuntu")
-parser.add_argument("-p","--package",type=string, choices=['python', 'java'], help="Choose Package python/java")
-parser.parse_args()
+parser.add_argument("-o","--os", choices=['alpine','debian'], help="Choose OS alpine/debian", required=True)
+parser.add_argument("-p","--package", choices=['python', 'java'], help="Choose Package python/java", required=True)
+args=parser.parse_args()
 
 
-with open('{}-{}.template'.format(args.os, args.package), 'r') as file:
+with open('templates/{}-{}.template'.format(args.os, args.package), 'r') as file:
     text = file.read()
 
 subd = {
-##Python
-python-gpg-key = CONSTANTS.python-gpg-key
-python-version = CONSTANTS.python-version
-pip-version    = CONSTANTS.pip-version
-pip-url        = CONSTANTS.pip-url
-pip-sha        = CONSTANTS.pip-sha
-alpine-version = CONSTANTS.alpine-version
-}
+            "python_gpg_key" : CONSTANTS.python_gpg_key,
+            "python_version" : CONSTANTS.python_version,
+            "pip_version"    : CONSTANTS.pip_version,
+            "pip_url"        : CONSTANTS.pip_url,
+            "pip_sha"        : CONSTANTS.pip_sha,
+            "alpine_version" : CONSTANTS.alpine_version,
+            "debian_version" : CONSTANTS.debian_version
+        }
 
-with open('{}/Dockerfile'.format(args.package), 'rw') as file:
+with open('build/Dockerfile', 'w') as file:
     file.write(Template(text).safe_substitute(subd))
