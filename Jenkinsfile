@@ -4,20 +4,27 @@ pipeline {
         skipStagesAfterUnstable()
     }
     stages {
-        stage('Build') {
+        stage('Creating Docker File') {
             steps {
-                echo "Building"
+                echo "Creating Docker File"
+                python --version
             }
         }
-        stage('Test'){
+        stage('Build Image'){
             steps {
-              echo "Testing"
+              echo "Building Docker Image"
             }
         }
-        stage('Deploy') {
-            steps {
-              echo "Deploying"
-            }
+        stage('Deploy to ECR') {
+        when {
+          expression {
+            currentBuild.result == null || currentBuild.result == 'SUCCESS'
+          }
+        }
+        steps {
+            echo 'Deploying to ECR'
+        }
+    }
         }
     }
 }
