@@ -14,7 +14,7 @@ pipeline {
               echo "Building Docker Image"
             }
         }
-        stage('Deploy to ECR') {
+        stage('Deploy to ECR'){
         when {
           expression {
             currentBuild.result == null || currentBuild.result == 'SUCCESS'
@@ -23,8 +23,6 @@ pipeline {
         steps {
             echo 'Deploying to ECR'
             python -v
-        }
-    }
         }
     }
 }
