@@ -7,7 +7,6 @@ pipeline {
         stage('Creating Docker File') {
             steps {
                 echo "Creating Docker File"
-                python --version
             }
         }
         stage('Build Image'){
@@ -23,6 +22,7 @@ pipeline {
         }
         steps {
             echo 'Deploying to ECR'
+            python -v
         }
     }
         }
