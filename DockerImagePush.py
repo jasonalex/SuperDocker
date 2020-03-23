@@ -16,8 +16,9 @@ ecr = session.client('ecr')
 try:
     response = ecr.describe_repositories(repositoryNames=['{}-{}-{}'.format(args.os,args.package,args.cx)])
     uri = response['repositories'][0]['repositoryUri']
+    print(uri)
     print('Logging in to ECR')
-    os.system('aws ecr get-login-password --region ap-south-1| docker login --username AWS --password-stdin {}'.format(uri))
+    os.system('aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin {}'.format(uri))
     os.system('docker tag {}-{}:latest {}:latest'.format(args.os,args.package,uri))
     os.system('docker push {}:latest'.format(uri))
 
