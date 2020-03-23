@@ -29,5 +29,5 @@ except ecr.exceptions.RepositoryNotFoundException as e:
                                 policyText=str(temp.substitute(account_id=args.cx)),
                                 force= False
                             )
-except Exceptions as e:
+except:
     exit(1)
