@@ -21,7 +21,8 @@ pipeline {
               }
             }
             steps {
-                python --version
+                echo "Deploying Image to ECR"
+                sh 'python --version' 
             }
         }
     }
